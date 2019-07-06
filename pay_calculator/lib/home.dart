@@ -17,7 +17,7 @@ class _HomeState extends State<Home> {
     final DateTime picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
-        firstDate: DateTime(2015, 8),
+        firstDate: DateTime(2019, 2),
         lastDate: DateTime(2050));
     if (picked != null && picked != selectedDate)
       setState(() {

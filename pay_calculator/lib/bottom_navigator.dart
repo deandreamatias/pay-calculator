@@ -42,6 +42,12 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         title: const Text('Xunfles paid'),
       ),
       body:_widgetOptions.elementAt(_selectedIndex),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        icon: Icon(Icons.save),
+        label: Text("Save"),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -58,7 +64,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.blue,
         onTap: _onItemTapped,
       ),
     );
