@@ -19,20 +19,24 @@ class _HomeState extends State<Home> {
         initialDate: selectedDate,
         firstDate: DateTime(2019, 2),
         lastDate: DateTime(2050));
-    if (picked != null && picked != selectedDate)
+    if (picked != null && picked != selectedDate){
       setState(() {
         selectedDate = picked;
       });
+    }
   }
 
-  Future<Null> _selectTime(BuildContext context) async {
+  Future<Null> _selectTime(BuildContext context, bool initHour) async {
     final TimeOfDay picked = await showTimePicker(
         context: context,
         initialTime: selectTime);
-    if (picked != null && picked != selectTime)
+    if (picked != null && picked != selectTime){
       setState(() {
         selectTime = picked;
       });
+      initHour ? initTime = selectTime : finalTime = selectTime;
+    }
+      
   }
 
   @override
@@ -47,12 +51,12 @@ class _HomeState extends State<Home> {
               color: Colors.blue,
             ),
             RaisedButton(
-              onPressed: () => _selectTime(context),
+              onPressed: () => _selectTime(context, true),
               child: Text("${selectTime.hour}:${selectTime.minute}"),
               color: Colors.blue,
             ),
             RaisedButton(
-              onPressed: () => _selectTime(context),
+              onPressed: () => _selectTime(context, false),
               child: Text("${selectTime.hour}:${selectTime.minute}"),
               color: Colors.blue,
             ),
