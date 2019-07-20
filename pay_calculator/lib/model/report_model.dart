@@ -4,9 +4,9 @@ import 'package:pay_calculator/util/database.dart';
 import 'package:pay_calculator/util/format_time.dart';
 
 class ReportModel {
-  DateTime selectedDate = DateTime.now();
-  TimeOfDay selectTimeInit = TimeOfDay.now();
-  TimeOfDay selectTimeFinal = TimeOfDay.now();
+  DateTime selectedDate;
+  TimeOfDay selectTimeInit;
+  TimeOfDay selectTimeFinal;
   FormatTime formatTime = FormatTime();
   ReportElement reportElement = ReportElement();
   Database _database = Database();
@@ -42,6 +42,9 @@ class ReportModel {
   void insertElement() {
     _reportBuild();
     _database.insert(reportElement);
+    _database.queryList().then((list){
+      print(list.first.date);
+    });
   }
 }
 

@@ -23,6 +23,13 @@ class Database {
     allRows.forEach((row) => print(row));
   }
 
+  Future<List<ReportElement>> queryList() async {
+    final list = await dbHelper.queryList();
+    print('query list:');
+    return list;
+  }
+
+
   void update(ReportElement reportElement) async {
     // row to update
     Map<String, dynamic> row = {

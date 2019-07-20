@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:path/path.dart';
+import 'package:pay_calculator/model/report_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -65,6 +66,24 @@ class DatabaseHelper {
   Future<List<Map<String, dynamic>>> queryAllRows() async {
     Database db = await instance.database;
     return await db.query(table);
+  }
+
+  Future<List<ReportElement>> queryList() async {
+    Database db = await instance.database;
+
+    List<Map> maps = await db.query(table,
+        columns: ["_id", "date", "initHour", "finalHour", "money"]);
+
+    return maps.map((i) => _fromMap(i)).toList();
+  }
+
+  ReportElement _fromMap(Map<String, dynamic> map) {
+    return ReportElement(
+        date: map["date"],
+        initHour: map["initHour"],
+        finalHour: map["finalHour"],
+        money: map["money"],
+        id: map["_id"]);
   }
 
   // All of the methods (insert, query, update, delete) can also be done using

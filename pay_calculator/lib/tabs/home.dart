@@ -15,6 +15,9 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
+    reportModel.selectedDate = DateTime.now();
+    reportModel.selectTimeInit = TimeOfDay.now();
+    reportModel.selectTimeFinal = TimeOfDay.now();
     super.initState();
   }
 
