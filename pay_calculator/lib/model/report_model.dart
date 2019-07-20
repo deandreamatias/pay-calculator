@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'package:pay_calculator/util/database.dart';
 import 'package:pay_calculator/util/format_time.dart';
+import 'package:scoped_model/scoped_model.dart';
 
-class ReportModel {
-  DateTime selectedDate;
-  TimeOfDay selectTimeInit;
-  TimeOfDay selectTimeFinal;
+class ReportModel extends Model {
   FormatTime formatTime = FormatTime();
   ReportElement reportElement = ReportElement();
   Database _database = Database();
+  DateTime selectedDate = DateTime.now();
+  TimeOfDay selectTimeInit = TimeOfDay.now();
+  TimeOfDay selectTimeFinal = TimeOfDay.now();
 
-  void _reportBuild() {
+  _reportBuild() {
     reportElement.id = 1;
     reportElement.date = formatTime.dateToString(selectedDate);
     print('Date: ${reportElement.date}');
@@ -39,21 +40,36 @@ class ReportModel {
     }
   }
 
-  void insertElement() {
+  updateDate(DateTime date){
+    selectedDate = date;
+    notifyListeners();
+  }
+
+  updateTime(TimeOfDay time, bool initHour){
+    initHour ? selectTimeInit = time : selectTimeFinal = time ;
+    notifyListeners();
+  }
+
+  insertElement() {
     _reportBuild();
     _database.insert(reportElement);
-    _database.queryList().then((list){
-      print(list.first.date);
+    _database.queryList().then((list) {
+      print('Query ready');
     });
+    notifyListeners();
   }
+
+  static ReportModel of(BuildContext context) =>
+      ScopedModel.of<ReportModel>(context);
 }
 
-class ReportElement  {
+class ReportElement {
   int id;
   String date;
   String initHour;
   String finalHour;
   int money;
 
-  ReportElement({this.date, this.initHour, this.finalHour, this.money, this.id});
+  ReportElement(
+      {this.date, this.initHour, this.finalHour, this.money, this.id});
 }

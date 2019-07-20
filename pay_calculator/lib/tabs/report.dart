@@ -42,7 +42,7 @@ class _ReportState extends State<Report> {
 
   Widget loadingWidget() {
     return Container(
-      child: CircularProgressIndicator(),
+      child: Center(child: CircularProgressIndicator()),
     );
   }
 

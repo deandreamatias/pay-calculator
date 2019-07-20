@@ -12,6 +12,7 @@ dependencies:
   sqflite: ^1.1.6+2
   path_provider: ^1.1.2
   intl: ^0.15.7
+  scoped_model: ^1.0.1
 
 dev_dependencies:
   flutter_test:

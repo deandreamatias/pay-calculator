@@ -4,6 +4,7 @@ import 'package:pay_calculator/model/report_model.dart';
 import 'package:pay_calculator/tabs/home.dart';
 import 'package:pay_calculator/tabs/settings.dart';
 import 'package:pay_calculator/tabs/report.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class BottomNavigator extends StatefulWidget {
   BottomNavigator({Key key}) : super(key: key);
@@ -29,34 +30,38 @@ class _BottomNavigatorState extends State<BottomNavigator> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Pay calculator'),
-      ),
-      body: _widgetOptions.elementAt(_selectedIndex),
-      floatingActionButton: _fab(_selectedIndex),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.description),
-            title: Text('Table'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            title: Text('Settings'),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
-        onTap: _onItemTapped,
+    return ScopedModel<ReportModel>(
+      model: reportModel,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Pay calculator'),
+        ),
+        body: _widgetOptions.elementAt(_selectedIndex),
+        floatingActionButton: _fab(_selectedIndex),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              title: Text('Home'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.description),
+              title: Text('Table'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              title: Text('Settings'),
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.blue,
+          onTap: _onItemTapped,
+        ),
       ),
     );
   }
+
   Widget _fab(int index) {
     if (index == 0) {
       return FloatingActionButton.extended(
@@ -69,5 +74,4 @@ class _BottomNavigatorState extends State<BottomNavigator> {
     } else
       return null;
   }
-
 }
