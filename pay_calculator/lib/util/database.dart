@@ -43,9 +43,7 @@ class Database {
     print('updated $rowsAffected row(s)');
   }
 
-  void delete() async {
-    // Assuming that the number of rows is the id for the last row.
-    final id = await dbHelper.queryRowCount();
+  void delete(int id) async {
     final rowsDeleted = await dbHelper.delete(id);
     print('deleted $rowsDeleted row(s): row $id');
   }

@@ -12,6 +12,26 @@ class ReportModel extends Model {
   TimeOfDay selectTimeInit = TimeOfDay.now();
   TimeOfDay selectTimeFinal = TimeOfDay.now();
 
+  /// Public method of report model
+  updateDate(DateTime date) {
+    selectedDate = date;
+    notifyListeners();
+  }
+
+  updateTime(TimeOfDay time, bool initHour) {
+    initHour ? selectTimeInit = time : selectTimeFinal = time;
+    notifyListeners();
+  }
+
+  insertElement() {
+    _reportBuild();
+    _database.insert(reportElement);
+    _database.queryList().then((list) {
+      print('Query ready');
+    });
+    notifyListeners();
+  }
+
   _reportBuild() {
     reportElement.id = 1;
     reportElement.date = formatTime.dateToString(selectedDate);
@@ -38,25 +58,6 @@ class ReportModel extends Model {
     } else {
       return 0;
     }
-  }
-
-  updateDate(DateTime date){
-    selectedDate = date;
-    notifyListeners();
-  }
-
-  updateTime(TimeOfDay time, bool initHour){
-    initHour ? selectTimeInit = time : selectTimeFinal = time ;
-    notifyListeners();
-  }
-
-  insertElement() {
-    _reportBuild();
-    _database.insert(reportElement);
-    _database.queryList().then((list) {
-      print('Query ready');
-    });
-    notifyListeners();
   }
 
   static ReportModel of(BuildContext context) =>

@@ -17,7 +17,7 @@ class _ReportState extends State<Report> {
   @override
   void initState() {
     _listWidget = false;
-    initList();
+    _loadList();
     super.initState();
   }
 
@@ -32,8 +32,11 @@ class _ReportState extends State<Report> {
       itemBuilder: (context, index) {
         final listElement = listElements[index];
         return ListTile(
-          leading: Text(listElement.initHour),
-          title: Text(listElement.finalHour),
+          onLongPress: () {
+            _deleteItemList(index);
+          },
+          leading: Text(listElement.date),
+          title: Text(listElement.initHour + ' to ' + listElement.finalHour),
           trailing: Text(listElement.money.toString()),
         );
       },
@@ -46,12 +49,20 @@ class _ReportState extends State<Report> {
     );
   }
 
-  void initList() {
+  _loadList() {
     database.queryList().then((list) {
       setState(() {
         listElements = list;
         _listWidget = true;
       });
     });
+  }
+
+  _deleteItemList(int id){
+    database.delete(id);
+    setState(() {
+      _listWidget = false;
+    });
+    _loadList();
   }
 }
