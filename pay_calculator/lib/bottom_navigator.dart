@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
-import 'settings.dart';
-import 'report.dart';
+
+import 'package:pay_calculator/tabs/home.dart';
+import 'package:pay_calculator/tabs/settings.dart';
+import 'package:pay_calculator/tabs/report.dart';
 
 class BottomNavigator extends StatefulWidget {
   BottomNavigator({Key key}) : super(key: key);
@@ -13,9 +14,9 @@ class BottomNavigator extends StatefulWidget {
 class _BottomNavigatorState extends State<BottomNavigator> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
-  Home(),
-  Report(),
-  Settings(),
+    Home(),
+    Report(),
+    Settings(),
   ];
 
   void _onItemTapped(int index) {
@@ -28,9 +29,9 @@ class _BottomNavigatorState extends State<BottomNavigator> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Xunfles paid'),
+        title: const Text('Pay calculator'),
       ),
-      body:_widgetOptions.elementAt(_selectedIndex),
+      body: _widgetOptions.elementAt(_selectedIndex),
       floatingActionButton: _fab(_selectedIndex),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       bottomNavigationBar: BottomNavigationBar(
@@ -56,14 +57,13 @@ class _BottomNavigatorState extends State<BottomNavigator> {
   }
 }
 
-Widget _fab (int index){
+Widget _fab(int index) {
   if (index == 0) {
     return FloatingActionButton.extended(
       onPressed: () {},
       icon: Icon(Icons.save),
       label: Text("Save"),
     );
-  }
-  else
+  } else
     return null;
 }

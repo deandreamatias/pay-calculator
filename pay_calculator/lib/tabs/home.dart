@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'database/database.dart';
+
+import 'package:pay_calculator/database/database.dart';
 
 final String DB_NAME = "report_zamora";
 

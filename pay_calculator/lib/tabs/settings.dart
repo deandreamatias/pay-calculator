@@ -36,9 +36,10 @@ Widget _textForm (String text, bool money){
       padding: EdgeInsets.all(16.0),
       child: TextFormField(
         keyboardType: TextInputType.number,
+        initialValue: '1.0',
         decoration: InputDecoration(
           icon: money ? Icon(Icons.euro_symbol) : Icon(Icons.access_time),
-          labelText: text
+          helperText: text
         ),
       )
     )
