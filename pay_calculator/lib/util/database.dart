@@ -8,18 +8,18 @@ abstract class TableElement {
   Map<String, dynamic> toMap();
 }
 
-class Report extends TableElement {
+class ReportElement extends TableElement {
   static final String tableTitle = "report";
   String date;
   String initHour;
   String finalHour;
   double money;
 
-  Report({this.date, this.initHour, this.finalHour, this.money, id})
+  ReportElement({this.date, this.initHour, this.finalHour, this.money, id})
       : super(id, tableTitle);
 
-  factory Report.fromMap(Map<String, dynamic> map) {
-    return Report(
+  factory ReportElement.fromMap(Map<String, dynamic> map) {
+    return ReportElement(
         date: map["date"],
         initHour: map["initHour"],
         finalHour: map["finalHour"],
@@ -48,10 +48,9 @@ class Report extends TableElement {
   }
 }
 
-final String dbFileName = "crub.db";
-
 class DatabaseHelper {
-  static final DatabaseHelper _instance = new DatabaseHelper._internal();
+  final String dbFileName = "crub.db";
+  static final DatabaseHelper _instance =  DatabaseHelper._internal();
   factory DatabaseHelper() => _instance;
   DatabaseHelper._internal();
 
@@ -72,7 +71,7 @@ class DatabaseHelper {
       String path = "$databasesPath/$dbFileName";
       var db = await openDatabase(path, version: 1,
           onCreate: (Database database, int version) {
-        new Report().createTable(database);
+         ReportElement().createTable(database);
       });
       return db;
     } catch (e) {
@@ -82,13 +81,13 @@ class DatabaseHelper {
   }
 
   // Get list with all elements for database
-  Future<List<Report>> getList() async {
+  Future<List<ReportElement>> getList() async {
     Database dbClient = await db;
 
-    List<Map> maps = await dbClient.query(Report.tableTitle,
+    List<Map> maps = await dbClient.query(ReportElement.tableTitle,
         columns: ["_id", "date", "initHour", "finalHour", "money"]);
 
-    return maps.map((i) => Report.fromMap(i)).toList();
+    return maps.map((i) => ReportElement.fromMap(i)).toList();
   }
 
   // Insert element in database
@@ -96,7 +95,7 @@ class DatabaseHelper {
     var dbClient = await db;
 
     element.id = await dbClient.insert(element.tableName, element.toMap());
-    print("new Id ${element.id}");
+    print(" Id ${element.id}");
     return element;
   }
 
