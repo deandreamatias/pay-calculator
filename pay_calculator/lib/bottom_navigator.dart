@@ -4,7 +4,6 @@ import 'package:pay_calculator/model/report_model.dart';
 import 'package:pay_calculator/tabs/home.dart';
 import 'package:pay_calculator/tabs/settings.dart';
 import 'package:pay_calculator/tabs/report.dart';
-import 'package:pay_calculator/util/database.dart';
 
 class BottomNavigator extends StatefulWidget {
   BottomNavigator({Key key}) : super(key: key);

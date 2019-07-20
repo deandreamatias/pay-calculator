@@ -9,9 +9,10 @@ class ReportModel {
   TimeOfDay selectTimeFinal = TimeOfDay.now();
   FormatTime formatTime = FormatTime();
   ReportElement reportElement = ReportElement();
-  DatabaseHelper _databaseHelper = DatabaseHelper();
+  Database _database = Database();
 
   void _reportBuild() {
+    reportElement.id = 1;
     reportElement.date = formatTime.dateToString(selectedDate);
     print('Date: ${reportElement.date}');
     reportElement.initHour = formatTime.timeToString(selectTimeInit);
@@ -22,26 +23,34 @@ class ReportModel {
     print('Money: ${reportElement.money}');
   }
 
-  double _calcMoney() {
+  int _calcMoney() {
     final timeInit = formatTime.formatTime(selectedDate, selectTimeInit);
     final timeFinal = formatTime.formatTime(selectedDate, selectTimeFinal);
 
     int timeWork = timeInit.difference(timeFinal).inMinutes.abs();
     if (timeWork <= 390) {
-      return 30.0;
+      return 30;
     } else if (timeWork > 390 && timeWork < 420) {
-      return 33.5;
+      return 33;
     } else if (timeWork > 420 && timeWork < 450) {
-      return 37.0;
+      return 37;
     } else {
-      return 0.0;
+      return 0;
     }
   }
 
   void insertElement() {
     _reportBuild();
-    _databaseHelper.insert(reportElement).then((value) {
-      print('Insert element ${reportElement.toString()}');
-    });
+    _database.insert(reportElement);
   }
+}
+
+class ReportElement  {
+  int id;
+  String date;
+  String initHour;
+  String finalHour;
+  int money;
+
+  ReportElement({this.date, this.initHour, this.finalHour, this.money, this.id});
 }
