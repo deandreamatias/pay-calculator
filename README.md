@@ -1,4 +1,4 @@
-# Payment calculator
+# Pay calculator
 
 App to calculate payment for hostelry workers.
 
