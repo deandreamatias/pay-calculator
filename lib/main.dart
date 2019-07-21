@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:pay_calculator/bottom_navigator.dart';
+import 'package:pay_calculator/util/colors.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,9 +11,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      color: primaryColor,
+      theme: ThemeData.light(),
       home: BottomNavigator(),
     );
   }

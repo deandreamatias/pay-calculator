@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pay_calculator/model/report_model.dart';
+import 'package:scoped_model/scoped_model.dart';
 
+import 'package:pay_calculator/model/report_model.dart';
 import 'package:pay_calculator/tabs/home.dart';
 import 'package:pay_calculator/tabs/settings.dart';
 import 'package:pay_calculator/tabs/report.dart';
-import 'package:scoped_model/scoped_model.dart';
+import 'package:pay_calculator/util/colors.dart';
 
 class BottomNavigator extends StatefulWidget {
   BottomNavigator({Key key}) : super(key: key);
@@ -34,6 +35,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
       model: reportModel,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: primaryColor,
           title: Text('Pay calculator'),
         ),
         body: _widgetOptions.elementAt(_selectedIndex),
@@ -55,7 +57,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
             ),
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.blue,
+          selectedItemColor: primaryColor,
           onTap: _onItemTapped,
         ),
       ),
@@ -65,6 +67,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
   Widget _fab(int index) {
     if (index == 0) {
       return FloatingActionButton.extended(
+        backgroundColor: primaryColor,
         onPressed: () {
           reportModel.insertElement();
         },
