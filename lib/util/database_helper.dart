@@ -1,9 +1,9 @@
 import 'dart:io';
-
 import 'package:path/path.dart';
-import 'package:pay_calculator/model/report_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
+
+import 'package:pay_calculator/model/report_model.dart';
 
 class DatabaseHelper {
   static final _databaseName = "MyDatabase.db";
@@ -12,7 +12,8 @@ class DatabaseHelper {
   static final table = 'my_table';
 
   static final columnId = '_id';
-  static final columnDate = 'date';
+  static final columnInitDate = 'initDate';
+  static final columnFinalDate = 'finalDate';
   static final columnInitHour = 'initHour';
   static final columnFinalHour = 'finalHour';
   static final columnMoney = 'money';
@@ -43,7 +44,8 @@ class DatabaseHelper {
     await db.execute('''
           CREATE TABLE $table (
             $columnId INTEGER PRIMARY KEY,
-            $columnDate TEXT NOT NULL,
+            $columnInitDate TEXT NOT NULL,
+            $columnFinalDate TEXT NOT NULL,
             $columnInitHour TEXT NOT NULL,
             $columnFinalHour TEXT NOT NULL,
             $columnMoney INTEGER NOT NULL
@@ -72,14 +74,15 @@ class DatabaseHelper {
     Database db = await instance.database;
 
     List<Map> maps = await db.query(table,
-        columns: ["_id", "date", "initHour", "finalHour", "money"]);
+        columns: ["_id", "initDate", "finalDate", "initHour", "finalHour", "money"]);
 
     return maps.map((i) => _fromMap(i)).toList();
   }
 
   ReportElement _fromMap(Map<String, dynamic> map) {
     return ReportElement(
-        date: map["date"],
+        initDate: map["initDate"],
+        finalDate: map["finalDate"],
         initHour: map["initHour"],
         finalHour: map["finalHour"],
         money: map["money"],

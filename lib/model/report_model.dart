@@ -8,18 +8,19 @@ class ReportModel extends Model {
   FormatTime formatTime = FormatTime();
   ReportElement reportElement = ReportElement();
   Database _database = Database();
-  DateTime selectedDate = DateTime.now();
-  TimeOfDay selectTimeInit = TimeOfDay.now();
-  TimeOfDay selectTimeFinal = TimeOfDay.now();
+  DateTime selectInitDate = DateTime.now();
+  DateTime selectFinalDate = DateTime.now();
+  TimeOfDay selectInitTime = TimeOfDay.now();
+  TimeOfDay selectFinalTime = TimeOfDay.now();
 
   /// Public method of report model
-  updateDate(DateTime date) {
-    selectedDate = date;
+  updateDate(DateTime date, bool initDate) {
+    initDate ? selectInitDate = date : selectFinalDate = date;
     notifyListeners();
   }
 
   updateTime(TimeOfDay time, bool initHour) {
-    initHour ? selectTimeInit = time : selectTimeFinal = time;
+    initHour ? selectInitTime = time : selectFinalTime = time;
     notifyListeners();
   }
 
@@ -32,21 +33,24 @@ class ReportModel extends Model {
     notifyListeners();
   }
 
+  // Private method to build report element
   _reportBuild() {
     reportElement.id = 1;
-    reportElement.date = formatTime.dateToString(selectedDate);
-    print('Date: ${reportElement.date}');
-    reportElement.initHour = formatTime.timeToString(selectTimeInit);
+    reportElement.initDate = formatTime.dateToString(selectInitDate);
+    print('Date: ${reportElement.initDate}');
+    reportElement.finalDate = formatTime.dateToString(selectFinalDate);
+    print('Date: ${reportElement.finalDate}');
+    reportElement.initHour = formatTime.timeToString(selectInitTime);
     print('Initial hour: ${reportElement.initHour}');
-    reportElement.finalHour = formatTime.timeToString(selectTimeFinal);
+    reportElement.finalHour = formatTime.timeToString(selectFinalTime);
     print('Final hour: ${reportElement.finalHour}');
     reportElement.money = _calcMoney();
     print('Money: ${reportElement.money}');
   }
 
   int _calcMoney() {
-    final timeInit = formatTime.formatTime(selectedDate, selectTimeInit);
-    final timeFinal = formatTime.formatTime(selectedDate, selectTimeFinal);
+    final timeInit = formatTime.formatTime(selectInitDate, selectInitTime);
+    final timeFinal = formatTime.formatTime(selectFinalDate, selectFinalTime);
 
     int timeWork = timeInit.difference(timeFinal).inMinutes.abs();
     if (timeWork <= 390) {
@@ -66,11 +70,12 @@ class ReportModel extends Model {
 
 class ReportElement {
   int id;
-  String date;
+  String initDate;
+  String finalDate;
   String initHour;
   String finalHour;
   int money;
 
   ReportElement(
-      {this.date, this.initHour, this.finalHour, this.money, this.id});
+      {this.initDate, this.finalDate, this.initHour, this.finalHour, this.money, this.id});
 }

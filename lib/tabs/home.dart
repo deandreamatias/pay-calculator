@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pay_calculator/model/report_model.dart';
-
-import 'package:pay_calculator/util/format_time.dart';
 import 'package:scoped_model/scoped_model.dart';
+
+import 'package:pay_calculator/model/report_model.dart';
+import 'package:pay_calculator/util/colors.dart';
+import 'package:pay_calculator/util/format_time.dart';
 
 class Home extends StatelessWidget {
   Home({Key key}) : super(key: key);
@@ -13,24 +14,47 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScopedModelDescendant<ReportModel>(builder: (context, child, model) {
       return Container(
+        padding: EdgeInsets.all(16.0),
         child: Center(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              RaisedButton(
-                onPressed: () => _selectDate(context, model),
-                child: Text(formatTime.dateToString(model.selectedDate)),
-                color: Colors.blue,
+              Text('Init hour'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  RaisedButton(
+                    onPressed: () => _selectDate(context, false, model),
+                    child: Text(formatTime.dateToString(model.selectInitDate),
+                        style: TextStyle(color: lightColor)),
+                    color: primaryColor,
+                  ),
+                  RaisedButton(
+                    onPressed: () => _selectTime(context, true, model),
+                    child: Text(formatTime.timeToString(model.selectInitTime),
+                        style: TextStyle(color: lightColor)),
+                    color: primaryColor,
+                  )
+                ],
               ),
-              RaisedButton(
-                onPressed: () => _selectTime(context, true, model),
-                child: Text(formatTime.timeToString(model.selectTimeInit)),
-                color: Colors.blue,
-              ),
-              RaisedButton(
-                onPressed: () => _selectTime(context, false, model),
-                child: Text(formatTime.timeToString(model.selectTimeFinal)),
-                color: Colors.blue,
+              Text('Final hour'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  RaisedButton(
+                    onPressed: () => _selectDate(context, false, model),
+                    child: Text(formatTime.dateToString(model.selectFinalDate),
+                        style: TextStyle(color: lightColor)),
+                    color: primaryColor,
+                  ),
+                  RaisedButton(
+                    onPressed: () => _selectTime(context, false, model),
+                    child: Text(formatTime.timeToString(model.selectFinalTime),
+                        style: TextStyle(color: lightColor)),
+                    color: primaryColor,
+                  )
+                ],
               ),
               CheckboxListTile(
                 // onChanged: (bool check) {
@@ -49,25 +73,24 @@ class Home extends StatelessWidget {
     });
   }
 
-  Future<Null> _selectDate(BuildContext context, ReportModel model) async {
+  Future<Null> _selectDate(BuildContext context, bool initDate, ReportModel model) async {
     final DateTime picked = await showDatePicker(
         context: context,
-        initialDate: model.selectedDate,
+        initialDate: initDate ? model.selectInitDate : model.selectFinalDate,
         firstDate: DateTime(2019, 2),
         lastDate: DateTime(2050));
-    if (picked != null && picked != model.selectedDate) {
-        model.updateDate(picked);
+    if (picked != null) {
+      model.updateDate(picked, initDate);
     }
   }
 
-  Future<Null> _selectTime(BuildContext context, bool initHour, ReportModel model) async {
+  Future<Null> _selectTime(
+      BuildContext context, bool initHour, ReportModel model) async {
     final TimeOfDay picked = await showTimePicker(
         context: context,
-        initialTime: initHour
-            ? model.selectTimeInit
-            : model.selectTimeFinal);
+        initialTime: initHour ? model.selectInitTime : model.selectFinalTime);
     if (picked != null) {
-        model.updateTime(picked, initHour);
+      model.updateTime(picked, initHour);
     }
   }
 }

@@ -8,7 +8,8 @@ class Database {
   void insert(ReportElement reportElement) async {
     // row to insert
     Map<String, dynamic> row = {
-      DatabaseHelper.columnDate : reportElement.date,
+      DatabaseHelper.columnInitDate : reportElement.initDate,
+      DatabaseHelper.columnFinalDate : reportElement.finalDate,
       DatabaseHelper.columnInitHour  : reportElement.initHour,
       DatabaseHelper.columnFinalHour  : reportElement.finalHour,
       DatabaseHelper.columnMoney  : reportElement.money
@@ -34,7 +35,8 @@ class Database {
     // row to update
     Map<String, dynamic> row = {
       DatabaseHelper.columnId   : reportElement.id,
-      DatabaseHelper.columnDate : reportElement.date,
+      DatabaseHelper.columnInitDate : reportElement.initDate,
+      DatabaseHelper.columnFinalDate : reportElement.finalDate,
       DatabaseHelper.columnInitHour  : reportElement.initHour,
       DatabaseHelper.columnFinalHour  : reportElement.finalHour,
       DatabaseHelper.columnMoney  : reportElement.money
