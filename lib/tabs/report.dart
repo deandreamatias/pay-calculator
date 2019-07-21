@@ -33,7 +33,7 @@ class _ReportState extends State<Report> {
         final listElement = listElements[index];
         return ListTile(
           onLongPress: () {
-            _deleteItemList(index);
+            _deleteItemList(listElement.id);
           },
           leading: Text(listElement.initDate),
           title: Text(listElement.initHour + ' to ' + listElement.finalHour),

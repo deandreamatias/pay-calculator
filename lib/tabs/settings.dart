@@ -1,47 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:pay_calculator/model/report_model.dart';
 
 class Settings extends StatelessWidget {
+  final ReportModel reportModel = ReportModel();
+
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Row(            
+      child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              _textForm('Normal hour', false),
-              Icon(Icons.arrow_forward),
-              _textForm('Value', true),
-            ],
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
+              _textForm('Normal hour', true),
               _textForm('Extra hour', false),
-              Icon(Icons.arrow_forward),
-              _textForm('Value', true),
             ],
-          )
-        ],
-      )
+          )),
     );
+  }
+
+  // TODO: Edit controller in money fields
+  Widget _textForm(String text, bool normalHour) {
+  return TextFormField(
+        keyboardType: TextInputType.number,
+        initialValue: normalHour ? reportModel.money.toString() : reportModel.moneyExtra.toString(),
+        onFieldSubmitted: (money) => _saveMoney(int.parse(money), normalHour),
+        onEditingComplete: () => print('Dynamic'),
+        onSaved: (money) => _saveMoney(int.parse(money), normalHour),
+        decoration: InputDecoration(
+            icon: Icon(Icons.euro_symbol),
+            helperText: text),
+      );
+  }
+  _saveMoney(dynamic money, bool normalHour){
+    normalHour ? reportModel.money = money : reportModel.moneyExtra = money;
+    print('Money ${reportModel.money} | MoneyExtra ${reportModel.moneyExtra}');
   }
 }
 
-Widget _textForm (String text, bool money){
-  return Expanded(
-    flex: 1,
-    child: Container(
-      padding: EdgeInsets.all(16.0),
-      child: TextFormField(
-        keyboardType: TextInputType.number,
-        initialValue: '1.0',
-        decoration: InputDecoration(
-          icon: money ? Icon(Icons.euro_symbol) : Icon(Icons.access_time),
-          helperText: text
-        ),
-      )
-    )
-  );
-}

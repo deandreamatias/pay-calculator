@@ -12,6 +12,8 @@ class ReportModel extends Model {
   DateTime selectFinalDate = DateTime.now();
   TimeOfDay selectInitTime = TimeOfDay.now();
   TimeOfDay selectFinalTime = TimeOfDay.now();
+  int money = 30;
+  int moneyExtra = 7;
 
   /// Public method of report model
   updateDate(DateTime date, bool initDate) {
@@ -54,11 +56,13 @@ class ReportModel extends Model {
 
     int timeWork = timeInit.difference(timeFinal).inMinutes.abs();
     if (timeWork <= 390) {
-      return 30;
-    } else if (timeWork > 390 && timeWork < 420) {
+      return money;
+    } else if (timeWork > 390 && timeWork <= 420) {
       return 33;
-    } else if (timeWork > 420 && timeWork < 450) {
-      return 37;
+    } else if (timeWork > 420 && timeWork <= 450) {
+      return money+moneyExtra;
+    } else if (timeWork > 450 && timeWork <= 480) {
+      return money+10;
     } else {
       return 0;
     }
