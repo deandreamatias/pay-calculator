@@ -48,7 +48,7 @@ class DatabaseHelper {
             $columnFinalDate TEXT NOT NULL,
             $columnInitHour TEXT NOT NULL,
             $columnFinalHour TEXT NOT NULL,
-            $columnMoney INTEGER NOT NULL
+            $columnMoney REAL NOT NULL
           )
           ''');
   }

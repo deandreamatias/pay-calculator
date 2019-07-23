@@ -12,8 +12,8 @@ class ReportModel extends Model {
   DateTime selectFinalDate = DateTime.now();
   TimeOfDay selectInitTime = TimeOfDay(hour: 18, minute: 0);
   TimeOfDay selectFinalTime = TimeOfDay.now();
-  int money = 30;
-  int moneyExtra = 7;
+  double money = 30;
+  double moneyExtra = 7;
 
   /// Public method of report model
   updateDate(DateTime date, bool initDate) {
@@ -50,7 +50,7 @@ class ReportModel extends Model {
     print('Money: ${reportElement.money}');
   }
 
-  int _calcMoney() {
+  double _calcMoney() {
     final timeInit = formatTime.formatTime(selectInitDate, selectInitTime);
     final timeFinal = formatTime.formatTime(selectFinalDate, selectFinalTime);
 
@@ -58,11 +58,11 @@ class ReportModel extends Model {
     if (timeWork <= 390) {
       return money;
     } else if (timeWork > 390 && timeWork <= 420) {
-      return 33;
+      return money+moneyExtra/2;
     } else if (timeWork > 420 && timeWork <= 450) {
       return money+moneyExtra;
     } else if (timeWork > 450 && timeWork <= 480) {
-      return money+10;
+      return money+moneyExtra*1.5;
     } else {
       return 0;
     }
@@ -78,7 +78,7 @@ class ReportElement {
   String finalDate;
   String initHour;
   String finalHour;
-  int money;
+  double money;
 
   ReportElement(
       {this.initDate, this.finalDate, this.initHour, this.finalHour, this.money, this.id});
