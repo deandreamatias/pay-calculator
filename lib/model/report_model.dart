@@ -8,9 +8,9 @@ class ReportModel extends Model {
   FormatTime formatTime = FormatTime();
   ReportElement reportElement = ReportElement();
   Database _database = Database();
-  DateTime selectInitDate = DateTime.now();
+  DateTime selectInitDate = DateTime.now().subtract(Duration(hours: 6));
   DateTime selectFinalDate = DateTime.now();
-  TimeOfDay selectInitTime = TimeOfDay.now();
+  TimeOfDay selectInitTime = TimeOfDay(hour: 18, minute: 0);
   TimeOfDay selectFinalTime = TimeOfDay.now();
   int money = 30;
   int moneyExtra = 7;

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import 'package:pay_calculator/model/report_model.dart';
-import 'package:pay_calculator/tabs/home.dart';
-import 'package:pay_calculator/tabs/settings.dart';
-import 'package:pay_calculator/tabs/report.dart';
+import 'package:pay_calculator/tabs/home_tab.dart';
+import 'package:pay_calculator/tabs/settings_tab.dart';
+import 'package:pay_calculator/tabs/report_tab.dart';
 import 'package:pay_calculator/util/colors.dart';
 
 class BottomNavigator extends StatefulWidget {

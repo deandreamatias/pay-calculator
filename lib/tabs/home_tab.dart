@@ -25,7 +25,7 @@ class Home extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   RaisedButton(
-                    onPressed: () => _selectDate(context, false, model),
+                    onPressed: () => _selectDate(context, true, model),
                     child: Text(formatTime.dateToString(model.selectInitDate),
                         style: TextStyle(color: lightColor)),
                     color: primaryColor,

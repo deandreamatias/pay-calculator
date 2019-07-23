@@ -21,20 +21,18 @@ class Settings extends StatelessWidget {
 
   // TODO: Edit controller in money fields
   Widget _textForm(String text, bool normalHour) {
-  return TextFormField(
-        keyboardType: TextInputType.number,
-        initialValue: normalHour ? reportModel.money.toString() : reportModel.moneyExtra.toString(),
-        onFieldSubmitted: (money) => _saveMoney(int.parse(money), normalHour),
-        onEditingComplete: () => print('Dynamic'),
-        onSaved: (money) => _saveMoney(int.parse(money), normalHour),
-        decoration: InputDecoration(
-            icon: Icon(Icons.euro_symbol),
-            helperText: text),
-      );
+    return TextFormField(
+      keyboardType: TextInputType.number,
+      initialValue: normalHour ? reportModel.money.toString() : reportModel.moneyExtra.toString(),
+      onFieldSubmitted: (money) => _saveMoney(int.parse(money), normalHour),
+      onEditingComplete: () => print('Dynamic'),
+      onSaved: (money) => _saveMoney(int.parse(money), normalHour),
+      decoration: InputDecoration(icon: Icon(Icons.euro_symbol), helperText: text),
+    );
   }
-  _saveMoney(dynamic money, bool normalHour){
+
+  _saveMoney(dynamic money, bool normalHour) {
     normalHour ? reportModel.money = money : reportModel.moneyExtra = money;
     print('Money ${reportModel.money} | MoneyExtra ${reportModel.moneyExtra}');
   }
 }
-
