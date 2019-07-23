@@ -10,10 +10,11 @@ class ReportModel extends Model {
   Database _database = Database();
   DateTime selectInitDate = DateTime.now().subtract(Duration(hours: 6));
   DateTime selectFinalDate = DateTime.now();
-  TimeOfDay selectInitTime = TimeOfDay(hour: 18, minute: 0);
+  TimeOfDay selectInitTime = TimeOfDay(hour: 19, minute: 0);
   TimeOfDay selectFinalTime = TimeOfDay.now();
   double money = 30;
   double moneyExtra = 7;
+  bool moneyCalc = false;
 
   /// Public method of report model
   updateDate(DateTime date, bool initDate) {
@@ -23,6 +24,11 @@ class ReportModel extends Model {
 
   updateTime(TimeOfDay time, bool initHour) {
     initHour ? selectInitTime = time : selectFinalTime = time;
+    notifyListeners();
+  }
+
+  updateMoney(bool extraHour){
+    moneyCalc = extraHour;
     notifyListeners();
   }
 
@@ -37,6 +43,7 @@ class ReportModel extends Model {
 
   // Private method to build report element
   _reportBuild() {
+    print('Money: $moneyCalc');
     reportElement.id = 1;
     reportElement.initDate = formatTime.dateToString(selectInitDate);
     print('Date: ${reportElement.initDate}');
@@ -46,7 +53,7 @@ class ReportModel extends Model {
     print('Initial hour: ${reportElement.initHour}');
     reportElement.finalHour = formatTime.timeToString(selectFinalTime);
     print('Final hour: ${reportElement.finalHour}');
-    reportElement.money = _calcMoney();
+    reportElement.money = moneyCalc ? _calcMoney() : 30.0;
     print('Money: ${reportElement.money}');
   }
 
