@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pay_calculator/model/report_model.dart';
 
+final ReportModel reportModel = ReportModel();
+
 class Settings extends StatelessWidget {
-  final ReportModel reportModel = ReportModel();
+  TextEditingController _normalHourController =
+      TextEditingController(text: reportModel.money.toString());
+  TextEditingController _extraHourController =
+      TextEditingController(text: reportModel.moneyExtra.toString());
 
   @override
   Widget build(BuildContext context) {
@@ -19,20 +24,21 @@ class Settings extends StatelessWidget {
     );
   }
 
-  // TODO: Edit controller in money fields
   Widget _textForm(String text, bool normalHour) {
-    return TextFormField(
+    return TextField(
+      controller: normalHour ? _normalHourController : _extraHourController,
       keyboardType: TextInputType.number,
-      initialValue: normalHour ? reportModel.money.toString() : reportModel.moneyExtra.toString(),
-      onFieldSubmitted: (money) => _saveMoney(int.parse(money), normalHour),
-      onEditingComplete: () => print('Dynamic'),
-      onSaved: (money) => _saveMoney(int.parse(money), normalHour),
+      onChanged: normalHour
+          ? _saveMoney(_normalHourController, normalHour)
+          : _saveMoney(_extraHourController, normalHour),
       decoration: InputDecoration(icon: Icon(Icons.euro_symbol), helperText: text),
     );
   }
 
-  _saveMoney(dynamic money, bool normalHour) {
-    normalHour ? reportModel.money = money : reportModel.moneyExtra = money;
+  _saveMoney(TextEditingController value, bool normalHour) {
+    normalHour
+        ? reportModel.money = double.parse(value.text)
+        : reportModel.moneyExtra = double.parse(value.text);
     print('Money ${reportModel.money} | MoneyExtra ${reportModel.moneyExtra}');
   }
 }
