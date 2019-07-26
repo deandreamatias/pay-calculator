@@ -13,11 +13,10 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final FormatTime formatTime = FormatTime();
-  bool extraHour;
+  final ReportModel reportModel = ReportModel();
 
   @override
   void initState() {
-    extraHour = false;
     super.initState();
   }
 
@@ -70,12 +69,11 @@ class _HomeState extends State<Home> {
               CheckboxListTile(
                 onChanged: (check) {
                   setState(() {
-                    extraHour = check;
-                    model.updateMoney(extraHour);
+                    model.updateMoney(check);
                   });
                 },
                 controlAffinity: ListTileControlAffinity.leading,
-                value: extraHour,
+                value: model.moneyCalc,
                 title: Text('Calcular horas extras'),
               )
             ],
