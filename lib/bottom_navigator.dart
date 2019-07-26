@@ -15,6 +15,7 @@ class BottomNavigator extends StatefulWidget {
 }
 
 class _BottomNavigatorState extends State<BottomNavigator> {
+  GlobalKey<ScaffoldState> scaffold_state = new GlobalKey<ScaffoldState>();
   int _selectedIndex = 0;
   final ReportModel reportModel = ReportModel();
   static final List<Widget> _widgetOptions = <Widget>[
@@ -34,6 +35,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
     return ScopedModel<ReportModel>(
       model: reportModel,
       child: Scaffold(
+        key: scaffold_state,
         appBar: AppBar(
           backgroundColor: primaryColor,
           title: Text('Pay calculator'),
@@ -42,7 +44,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         floatingActionButton: _fab(_selectedIndex),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
+          items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               title: Text('Home'),
@@ -70,6 +72,8 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         backgroundColor: primaryColor,
         onPressed: () {
           reportModel.insertElement();
+          final snackBar = SnackBar(content: Text('Saved'));
+                scaffold_state.currentState.showSnackBar(snackBar);
         },
         icon: Icon(Icons.save),
         label: Text("Save"),
