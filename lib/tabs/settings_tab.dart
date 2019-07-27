@@ -17,8 +17,8 @@ class Settings extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              _textForm('Normal hour', true),
-              _textForm('Extra hour', false),
+              _textForm('Hora normal', true),
+              _textForm('Hora extra', false),
             ],
           )),
     );

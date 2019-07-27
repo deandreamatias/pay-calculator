@@ -36,8 +36,8 @@ class _ReportState extends State<Report> {
             _deleteItemList(listElement.id);
           },
           leading: Text(listElement.initDate),
-          title: Text(listElement.initHour + ' to ' + listElement.finalHour),
-          trailing: Text(listElement.money.toString()),
+          title: Text(listElement.initHour + ' hasta ' + listElement.finalHour),
+          trailing: Text('€ ${listElement.money.toString()}'),
         );
       },
     );

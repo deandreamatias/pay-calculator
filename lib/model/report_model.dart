@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 import 'package:pay_calculator/util/database.dart';
 import 'package:pay_calculator/util/format_time.dart';
-import 'package:scoped_model/scoped_model.dart';
 
 class ReportModel extends Model {
   FormatTime formatTime = FormatTime();

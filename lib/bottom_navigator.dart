@@ -47,15 +47,15 @@ class _BottomNavigatorState extends State<BottomNavigator> {
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              title: Text('Home'),
+              title: Text('Inicio'),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.description),
-              title: Text('Table'),
+              title: Text('Reporte'),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
-              title: Text('Settings'),
+              title: Text('Configuraçoes'),
             ),
           ],
           currentIndex: _selectedIndex,
@@ -72,11 +72,14 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         backgroundColor: primaryColor,
         onPressed: () {
           reportModel.insertElement();
-          final snackBar = SnackBar(content: Text('Saved'));
-                scaffold_state.currentState.showSnackBar(snackBar);
+          final snackBar = SnackBar(
+            content: Text('Salvo'),
+            duration: Duration(seconds: 3),
+          );
+          scaffold_state.currentState.showSnackBar(snackBar);
         },
         icon: Icon(Icons.save),
-        label: Text("Save"),
+        label: Text("Salvar"),
       );
     } else
       return null;

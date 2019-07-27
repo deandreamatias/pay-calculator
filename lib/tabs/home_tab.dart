@@ -27,45 +27,47 @@ class _HomeState extends State<Home> {
         padding: EdgeInsets.all(16.0),
         child: Center(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text('Init hour'),
+              Text('INICIO DA JORNADA', style: TextStyle(color: textColor, fontSize: 20)),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   RaisedButton(
                     onPressed: () => _selectDate(context, true, model),
                     child: Text(formatTime.dateToString(model.selectInitDate),
-                        style: TextStyle(color: lightColor)),
+                        style: TextStyle(color: lightColor, fontSize: 20)),
                     color: primaryColor,
                   ),
                   RaisedButton(
                     onPressed: () => _selectTime(context, true, model),
                     child: Text(formatTime.timeToString(model.selectInitTime),
-                        style: TextStyle(color: lightColor)),
+                        style: TextStyle(color: lightColor, fontSize: 20)),
                     color: primaryColor,
                   )
                 ],
               ),
-              Text('Final hour'),
+              SizedBox(height: 16),
+              Text('FIN DA JORNADA', style: TextStyle(color: textColor, fontSize: 20)),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   RaisedButton(
                     onPressed: () => _selectDate(context, false, model),
                     child: Text(formatTime.dateToString(model.selectFinalDate),
-                        style: TextStyle(color: lightColor)),
+                        style: TextStyle(color: lightColor, fontSize: 20)),
                     color: primaryColor,
                   ),
                   RaisedButton(
                     onPressed: () => _selectTime(context, false, model),
                     child: Text(formatTime.timeToString(model.selectFinalTime),
-                        style: TextStyle(color: lightColor)),
+                        style: TextStyle(color: lightColor, fontSize: 20)),
                     color: primaryColor,
                   )
                 ],
               ),
+              SizedBox(height: 16),
               CheckboxListTile(
                 onChanged: (check) {
                   setState(() {
