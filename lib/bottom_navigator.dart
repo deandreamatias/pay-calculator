@@ -15,7 +15,7 @@ class BottomNavigator extends StatefulWidget {
 }
 
 class _BottomNavigatorState extends State<BottomNavigator> {
-  GlobalKey<ScaffoldState> scaffold_state = GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> scaffoldState = GlobalKey<ScaffoldState>();
   final ReportModel reportModel = ReportModel();
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
@@ -41,7 +41,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
     return ScopedModel<ReportModel>(
       model: reportModel,
       child: Scaffold(
-        key: scaffold_state,
+        key: scaffoldState,
         appBar: AppBar(
           backgroundColor: primaryColor,
           title: Text('Pay calculator'),
@@ -82,7 +82,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
             content: Text('Salvo'),
             duration: Duration(seconds: 2),
           );
-          scaffold_state.currentState.showSnackBar(snackBar);
+          scaffoldState.currentState.showSnackBar(snackBar);
         },
         icon: Icon(Icons.save),
         label: Text("Salvar"),
