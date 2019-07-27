@@ -15,14 +15,20 @@ class BottomNavigator extends StatefulWidget {
 }
 
 class _BottomNavigatorState extends State<BottomNavigator> {
-  GlobalKey<ScaffoldState> scaffold_state = new GlobalKey<ScaffoldState>();
-  int _selectedIndex = 0;
+  GlobalKey<ScaffoldState> scaffold_state = GlobalKey<ScaffoldState>();
   final ReportModel reportModel = ReportModel();
+  int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
     Home(),
     Report(),
     Settings(),
   ];
+
+  @override
+  void initState() {
+    reportModel.updateTotalMoney();
+    super.initState();
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -74,7 +80,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
           reportModel.insertElement();
           final snackBar = SnackBar(
             content: Text('Salvo'),
-            duration: Duration(seconds: 3),
+            duration: Duration(seconds: 2),
           );
           scaffold_state.currentState.showSnackBar(snackBar);
         },

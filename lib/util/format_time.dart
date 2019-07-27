@@ -13,7 +13,6 @@ class FormatTime {
   }
 
   DateTime formatTime(DateTime dateTime, TimeOfDay timeOfDay) {
-    return DateTime(dateTime.year, dateTime.month, dateTime.day, timeOfDay.hour,
-        timeOfDay.minute);
+    return DateTime(dateTime.year, dateTime.month, dateTime.day, timeOfDay.hour, timeOfDay.minute);
   }
 }

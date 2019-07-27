@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:pay_calculator/model/report_model.dart';
 import 'package:pay_calculator/util/database.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class Report extends StatefulWidget {
   Report({Key key}) : super(key: key);
@@ -27,20 +28,26 @@ class _ReportState extends State<Report> {
   }
 
   Widget listView() {
-    return ListView.builder(
-      itemCount: listElements.length,
-      itemBuilder: (context, index) {
-        final listElement = listElements[index];
-        return ListTile(
-          onLongPress: () {
-            _deleteItemList(listElement.id);
-          },
-          leading: Text(listElement.initDate),
-          title: Text(listElement.initHour + ' hasta ' + listElement.finalHour),
-          trailing: Text('€ ${listElement.money.toString()}'),
-        );
-      },
-    );
+    return ScopedModelDescendant<ReportModel>(builder: (context, child, model) {
+      return ListView.builder(
+        itemCount: listElements.length,
+        itemBuilder: (context, index) {
+          final listElement = listElements[index];
+          return ListTile(
+            onLongPress: () {
+              model.deleteElement(listElement.id);
+              setState(() {
+                _listWidget = false;
+              });
+              _loadList();
+            },
+            leading: Text(listElement.initDate),
+            title: Text(listElement.initHour + ' hasta ' + listElement.finalHour),
+            trailing: Text('€ ${listElement.money.toString()}'),
+          );
+        },
+      );
+    });
   }
 
   Widget loadingWidget() {
@@ -56,13 +63,5 @@ class _ReportState extends State<Report> {
         _listWidget = true;
       });
     });
-  }
-
-  _deleteItemList(int id){
-    database.delete(id);
-    setState(() {
-      _listWidget = false;
-    });
-    _loadList();
   }
 }

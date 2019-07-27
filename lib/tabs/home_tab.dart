@@ -13,12 +13,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final FormatTime formatTime = FormatTime();
-  final ReportModel reportModel = ReportModel();
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +24,13 @@ class _HomeState extends State<Home> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(16.0),
+                child: Text('DINHEIRO ATÉ AGORA: € ${model.moneyTotal}',
+                    style: TextStyle(color: textColor, fontSize: 20)),
+                color: primaryColor.withOpacity(0.2),
+              ),
+              SizedBox(height: 32),
               Text('INICIO DA JORNADA', style: TextStyle(color: textColor, fontSize: 20)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

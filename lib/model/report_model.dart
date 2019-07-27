@@ -12,6 +12,7 @@ class ReportModel extends Model {
   DateTime selectFinalDate = DateTime.now();
   TimeOfDay selectInitTime = TimeOfDay(hour: 19, minute: 0);
   TimeOfDay selectFinalTime = TimeOfDay.now();
+  double moneyTotal = 0;
   double money = 30;
   double moneyExtra = 7;
   bool moneyCalc = false;
@@ -27,7 +28,7 @@ class ReportModel extends Model {
     notifyListeners();
   }
 
-  updateMoney(bool extraHour){
+  updateMoney(bool extraHour) {
     moneyCalc = extraHour;
     notifyListeners();
   }
@@ -35,8 +36,24 @@ class ReportModel extends Model {
   insertElement() {
     _reportBuild();
     _database.insert(reportElement);
+    updateTotalMoney();
+    notifyListeners();
+  }
+
+  deleteElement(int id) {
+    _database.delete(id);
+    updateTotalMoney();
+    notifyListeners();
+  }
+
+  updateTotalMoney() {
+    moneyTotal = 0;
     _database.queryList().then((list) {
-      print('Query ready');
+      list.forEach((reportElement) {
+        moneyTotal += reportElement.money;
+      });
+      print(moneyTotal);
+      notifyListeners();
     });
     notifyListeners();
   }
@@ -65,18 +82,17 @@ class ReportModel extends Model {
     if (timeWork <= 390) {
       return money;
     } else if (timeWork > 390 && timeWork <= 420) {
-      return money+moneyExtra/2;
+      return money + moneyExtra / 2;
     } else if (timeWork > 420 && timeWork <= 450) {
-      return money+moneyExtra;
+      return money + moneyExtra;
     } else if (timeWork > 450 && timeWork <= 480) {
-      return money+moneyExtra*1.5;
+      return money + moneyExtra * 1.5;
     } else {
       return 0;
     }
   }
 
-  static ReportModel of(BuildContext context) =>
-      ScopedModel.of<ReportModel>(context);
+  static ReportModel of(BuildContext context) => ScopedModel.of<ReportModel>(context);
 }
 
 class ReportElement {
