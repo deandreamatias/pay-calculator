@@ -3,12 +3,10 @@ import 'package:intl/intl.dart';
 
 class FormatTime {
   String dateToString(DateTime date) {
-    print(date.toString());
     return DateFormat("dd/MM").format(date);
   }
 
   String timeToString(TimeOfDay time) {
-    print(time.toString());
     return time.hour.toString() + ":" + time.minute.toString();
   }
 

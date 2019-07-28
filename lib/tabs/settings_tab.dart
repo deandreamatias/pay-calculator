@@ -39,6 +39,5 @@ class Settings extends StatelessWidget {
     normalHour
         ? reportModel.money = double.parse(value.text)
         : reportModel.moneyExtra = double.parse(value.text);
-    print('Money ${reportModel.money} | MoneyExtra ${reportModel.moneyExtra}');
   }
 }
