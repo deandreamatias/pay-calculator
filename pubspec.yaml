@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   sqflite: ^1.1.6+2
-  path_provider: ^1.1.2
+  path_provider: ^1.2.0
   intl: ^0.15.7
   scoped_model: ^1.0.1
 

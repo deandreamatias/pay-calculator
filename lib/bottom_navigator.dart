@@ -87,6 +87,20 @@ class _BottomNavigatorState extends State<BottomNavigator> {
         icon: Icon(Icons.save),
         label: Text("Salvar"),
       );
+    } else if (index == 1) {
+      return FloatingActionButton.extended(
+        backgroundColor: primaryColor,
+        onPressed: () {
+          reportModel.exportReport();
+          final snackBar = SnackBar(
+            content: Text('Exportado'),
+            duration: Duration(seconds: 2),
+          );
+          scaffoldState.currentState.showSnackBar(snackBar);
+        },
+        icon: Icon(Icons.file_download),
+        label: Text("Exportar"),
+      );
     } else
       return null;
   }

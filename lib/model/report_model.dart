@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pay_calculator/util/files_provider.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import 'package:pay_calculator/util/database.dart';
@@ -7,6 +8,7 @@ import 'package:pay_calculator/util/format_time.dart';
 class ReportModel extends Model {
   FormatTime formatTime = FormatTime();
   ReportElement reportElement = ReportElement();
+  FilesProvider filesProvider = FilesProvider();
   Database _database = Database();
   DateTime selectInitDate = DateTime.now().subtract(Duration(hours: 6));
   DateTime selectFinalDate = DateTime.now();
@@ -58,9 +60,22 @@ class ReportModel extends Model {
     notifyListeners();
   }
 
+  exportReport() async {
+    filesProvider.writeFile('Total: $moneyTotal \n', false);
+    final list = await _database.queryList();
+    list.forEach((item) {
+      print('Element id: ${item.id}');
+      String string =
+          '#${item.id}: ${item.initDate} - ${item.finalDate} ${item.initHour} hasta ${item.finalHour} € ${item.money} \n';
+      filesProvider.writeFile(string, true);
+    });
+    filesProvider.readFile().then((string) {
+      print(string);
+    });
+  }
+
   // Private method to build report element
   _reportBuild() {
-    print('Money: $moneyCalc');
     reportElement.id = 1;
     reportElement.initDate = formatTime.dateToString(selectInitDate);
     print('Date: ${reportElement.initDate}');
