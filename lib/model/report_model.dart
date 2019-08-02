@@ -21,7 +21,9 @@ class ReportModel extends Model {
 
   /// Public method of report model
   updateDate(DateTime date, bool initDate) {
-    initDate ? selectInitDate = date : selectFinalDate = date;
+    initDate
+        ? selectInitDate = date
+        : {selectFinalDate = date,  selectInitDate = selectFinalDate.subtract(Duration(days: 1))};
     notifyListeners();
   }
 

@@ -35,17 +35,17 @@ class _HomeState extends State<Home> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  RaisedButton(
+                  OutlineButton(
+                    color: primaryColorMedium,
                     onPressed: () => _selectDate(context, true, model),
                     child: Text(formatTime.dateToString(model.selectInitDate),
-                        style: TextStyle(color: lightColor, fontSize: 20)),
-                    color: primaryColor,
+                        style: TextStyle(color: textColor, fontSize: 20)),
                   ),
-                  RaisedButton(
+                  OutlineButton(
+                    color: primaryColorMedium,
                     onPressed: () => _selectTime(context, true, model),
                     child: Text(formatTime.timeToString(model.selectInitTime),
-                        style: TextStyle(color: lightColor, fontSize: 20)),
-                    color: primaryColor,
+                        style: TextStyle(color: textColor, fontSize: 20)),
                   )
                 ],
               ),
